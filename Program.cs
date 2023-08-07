@@ -7,10 +7,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-var connectionString = builder.Configuration.GetConnectionString("HairSalon");
-builder.Services.AddDbContext<HairSalon>(options => options.UseMySql(connectionString));
+builder.Services.AddDbContext<HairSalonContext>(dbContextOptions =>
+    dbContextOptions.UseMySql(
+        builder.Configuration["ConnectionStrings:DefaultConnection"],
+        ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"])
+    )
+);
 
 var app = builder.Build();
+
+// Initialize the database with initial data
+DataInitializer.InitializeData(app.Services);
 
 if (!app.Environment.IsDevelopment())
 {

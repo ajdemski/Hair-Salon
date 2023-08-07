@@ -1,0 +1,27 @@
+@model HairSalon.Models.Stylist
+
+@{
+    string action = (Model != null && Model.StylistId != 0) ? "Edit" : "Create";
+}
+
+<h1>@(action == "Edit" ? "Edit Stylist" : "Add New Stylist")</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Specialty">Specialty:</label>
+        <input asp-for="Specialty" class="form-control" />
+        <span asp-validation-for="Specialty" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Wage">Wage:</label>
+        <input asp-for="Wage" class="form-control" />
+        <span asp-validation-for="Wage" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">@action</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

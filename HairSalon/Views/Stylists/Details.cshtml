@@ -1,0 +1,30 @@
+@model HairSalon.Models.Stylist
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@Model.Name
+    <a href="/stylists/edit/@Model.StylistId" class="btn btn-primary">Edit</a>
+    <a href="#" data-id="@Model.StylistId" class="btn btn-danger delete-link">Delete</a>
+</h1>
+
+<h5>Specialty: @Model.Specialty</h5>
+<!-- Assuming you have added Wage property to the Stylist class -->
+<h5>Wage: $@Model.Wage</h5>
+
+<h2>Client List</h2>
+
+@if (Model.Clients.Count == 0)
+{
+    <h6>No clients</h6>
+}
+else
+{
+    <ol>
+        @foreach (var client in Model.Clients)
+        {
+            <li>@client.Name</li>
+        }
+    </ol>
+}
